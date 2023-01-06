@@ -1,9 +1,13 @@
+import Link from "next/link";
+
 const blog = ({ posts }) => {
   return (
     <>
       <h1>result</h1>
       {posts?.map((p) => (
-        <h5 key={p.id}>{p.title}</h5>
+        <Link key={p.id} href={`/blog/${p.id}`}>
+          <h5>{p.title}</h5>
+        </Link>
       ))}
       <hr />
       <pre>{JSON.stringify(posts, null, 2)}</pre>
