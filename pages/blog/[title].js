@@ -8,6 +8,7 @@ const Post = (post) => {
       <pre>{JSON.stringify(post.post[0].title, null, 2)}</pre>
       <Link href={"/blog"}>Retour</Link>
       <hr />
+      <pre>{JSON.stringify(post, null, 2)}</pre>
     </>
   );
 };
