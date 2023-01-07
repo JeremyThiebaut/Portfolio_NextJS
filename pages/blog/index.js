@@ -5,7 +5,7 @@ const blog = ({ posts }) => {
     <>
       <h1>result</h1>
       {posts?.map((p) => (
-        <Link key={p.id} href={`/blog/${p.id}`}>
+        <Link key={p.title} href={`/blog/${p.title}`}>
           <h5>{p.title}</h5>
         </Link>
       ))}

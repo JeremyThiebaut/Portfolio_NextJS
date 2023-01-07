@@ -1,10 +1,11 @@
 import Link from "next/link";
+import axios from "axios";
 
 const Post = (post) => {
   return (
     <>
       <h1>Post</h1>
-      <pre>{JSON.stringify(post.post.title, null, 2)}</pre>
+      <pre>{JSON.stringify(post.post[0].title, null, 2)}</pre>
       <Link href={"/blog"}>Retour</Link>
       <hr />
     </>
@@ -18,7 +19,7 @@ export const getStaticPaths = async () => {
     `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/posts`
   );
   const { posts } = await response.json();
-  const paths = posts.map((p) => ({ params: { id: p.id.toString() } }));
+  const paths = posts.map((p) => ({ params: { title: p.title.toString() } }));
   return {
     paths,
     fallback: false,
@@ -26,15 +27,14 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }) => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/posts`
-  );
-  const { posts } = await response.json();
-  const post = posts.find((p) => p.id.toString() === params.id);
-  console.log(post);
+  const post = await axios({
+    method: "get",
+    url: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/posts`,
+    data: params,
+  });
   return {
     props: {
-      post,
+      post: post.data.post,
     },
   };
 };
