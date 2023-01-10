@@ -1,10 +1,12 @@
 import Head from "next/head";
 import { Inter } from "@next/font/google";
 import "../styles/Home.module.scss";
+import Description from "../components/Description";
+import axios from "axios";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export default function Home({ profil }) {
   return (
     <>
       <Head>
@@ -13,6 +15,21 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Description profil={profil} />
     </>
   );
 }
+
+export const getStaticProps = async () => {
+  const response = await axios({
+    method: "get",
+    url: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/profil`,
+    data: { id: 1 },
+  });
+
+  return {
+    props: {
+      profil: response.data.profil[0],
+    },
+  };
+};
