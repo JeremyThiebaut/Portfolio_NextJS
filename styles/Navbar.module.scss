@@ -1,0 +1,35 @@
+@import "colors";
+
+.navbar {
+  top: 0;
+  z-index: 100;
+  background-color: $blue;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 4rem;
+  width: 100%;
+  position: sticky;
+  margin-bottom: -4rem;
+
+  &__logo {
+    margin-left: 10%;
+  }
+
+  &__nav {
+    margin-right: 10%;
+    display: flex;
+    justify-content: flex-end;
+
+    & > * {
+      color: #fff;
+      margin-left: auto;
+      margin: 0 1vw;
+
+      &:last-child {
+        margin: 0 0 0 1vw;
+      }
+    }
+  }
+}
