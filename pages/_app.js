@@ -5,7 +5,7 @@ export default function App({ Component, pageProps }) {
   return (
     <div className="container">
       <MyLayout>
-        <Component {...pageProps} />;
+        <Component {...pageProps} />
       </MyLayout>
     </div>
   );

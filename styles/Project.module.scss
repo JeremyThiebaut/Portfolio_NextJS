@@ -20,8 +20,48 @@
     grid-gap: 1rem;
   }
 
+  &__project {
+    max-width: 50em;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+
+    &:hover {
+      border-right: 1px solid #fff;
+    }
+  }
+
+  &__project:hover &__picture {
+    transform: translateX(-12%);
+    filter: grayscale(100%);
+  }
+
+  &__project:hover &__description {
+    transition: all 0.5s ease;
+    opacity: 1;
+  }
+
   &__picture {
     width: 100%;
-    height: auto;
+    height: 20vw;
+    object-fit: cover;
+    transition: all 0.2s ease;
+  }
+
+  &__description {
+    position: absolute;
+    z-index: 10;
+    color: #fff;
+    bottom: 10px;
+    right: 10px;
+    display: block;
+    font-weight: bold;
+    writing-mode: vertical-rl;
+    transition: all 0.2s ease;
+    opacity: 0;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 }
