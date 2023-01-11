@@ -1,0 +1,27 @@
+@import "colors";
+
+.project {
+  padding: 4rem 0 0;
+
+  &__title {
+    background-color: $lightBlack;
+    color: #fff;
+    padding: 5px 15px;
+    margin: 0 10% 0 auto;
+    width: fit-content;
+    border-radius: 5px 5px 0 0;
+  }
+
+  &__projects {
+    background-color: $lightBlack;
+    padding: 40px 10vw 40px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
+  }
+
+  &__picture {
+    width: 100%;
+    height: auto;
+  }
+}
