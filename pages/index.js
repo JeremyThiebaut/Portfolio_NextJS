@@ -4,10 +4,11 @@ import "../styles/Home.module.scss";
 import Description from "../components/Description";
 import axios from "axios";
 import Project from "../components/Project";
+import Document from "../components/Document";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home({ profil, project }) {
+export default function Home({ profil, project, document }) {
   return (
     <>
       <Head>
@@ -18,6 +19,7 @@ export default function Home({ profil, project }) {
       </Head>
       <Description profil={profil} />
       <Project project={project} />
+      <Document document={document} />
     </>
   );
 }
@@ -34,10 +36,17 @@ export const getStaticProps = async () => {
     url: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/project`,
   });
 
+  const documents = await fetch(
+    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/document`
+  );
+  const { document } = await documents.json();
+  console.log(document);
+
   return {
     props: {
       profil: myProfil.data.profil[0],
       project: myProject.data.project,
+      document,
     },
   };
 };
