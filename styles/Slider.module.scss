@@ -1,0 +1,49 @@
+.slider {
+  &__picture {
+    object-fit: cover;
+    height: 100vh;
+  }
+
+  &__container {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.6);
+    height: 100vh;
+    top: 0;
+    width: 100vw;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__top {
+    color: #fff;
+    font-size: 4vw;
+    line-height: 0.7;
+    letter-spacing: 2px;
+    margin: 0;
+    transition: all 0.5s ease;
+    animation-delay: 1.5s;
+    text-transform: uppercase;
+  }
+
+  &__middle {
+    width: 42vw;
+    margin: 3px 0;
+    background-color: lightgray;
+    border: 1px solid lightgray;
+    transition: all 0.5s ease;
+    animation-delay: 0.5s;
+  }
+
+  &__bottom {
+    color: #007bff;
+    font-size: 4vw;
+    line-height: 0.74;
+    margin: 0;
+    transition: all 0.5s ease;
+    animation-delay: 1.5s;
+    text-transform: uppercase;
+  }
+}

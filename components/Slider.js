@@ -2,14 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import styles from "../styles/slider.module.scss";
+import styles from "../styles/Slider.module.scss";
+import "animate.css";
 
-const Slider = ({ slider }) => {
-  console.log(slider);
+const Slider = ({ slider, profil }) => {
+  console.log(profil);
   return (
     <div className={styles.slider}>
       <Carousel
-        id="carousel"
+        // id="carousel"
         interval={5000}
         transitionTime={1000}
         swipeable={true}
@@ -36,13 +37,26 @@ const Slider = ({ slider }) => {
           </div>
         ))}
       </Carousel>
-      <div className="slider-zone">
-        <h1 className="slider-zone-top animate__animated animate__fadeInUp">
-          Jérémy THIEBAUT
+      <div className={styles.slider__container}>
+        <h1
+          className={
+            styles.slider__top +
+            " slider-zone-top animate__animated animate__fadeInUp"
+          }
+        >
+          {profil.firstName} {profil.lastName}
         </h1>
-        <hr className="slider-zone-middle animate__animated animate__fadeInLeft" />
-        <h2 className="slider-zone-bottom animate__animated animate__fadeInDown">
-          Développeur Web
+        <hr
+          className={
+            styles.slider__middle + " animate__animated animate__fadeInLeft"
+          }
+        />
+        <h2
+          className={
+            styles.slider__bottom + " animate__animated animate__fadeInDown"
+          }
+        >
+          {profil.profession}
         </h2>
       </div>
       <div className="slider-button_down">

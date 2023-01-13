@@ -20,7 +20,7 @@ export default function Home({ profil, project, document, slider }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Slider slider={slider} />
+      <Slider slider={slider} profil={profil} />
       <Navbar />
       <Description profil={profil} />
       <Project project={project} />
