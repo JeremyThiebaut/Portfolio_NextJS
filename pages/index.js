@@ -6,10 +6,12 @@ import axios from "axios";
 import Project from "../components/Project";
 import Document from "../components/Document";
 import Footer from "../components/Footer";
+import Slider from "../components/Slider";
+import Navbar from "../components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home({ profil, project, document }) {
+export default function Home({ profil, project, document, slider }) {
   return (
     <>
       <Head>
@@ -18,6 +20,8 @@ export default function Home({ profil, project, document }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Slider slider={slider} />
+      <Navbar />
       <Description profil={profil} />
       <Project project={project} />
       <Document document={document} />
@@ -43,11 +47,18 @@ export const getStaticProps = async () => {
   );
   const { document } = await documents.json();
 
+  const sliders = await fetch(
+    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/slider`
+  );
+
+  const { slider } = await sliders.json();
+
   return {
     props: {
       profil: myProfil.data.profil[0],
       project,
       document,
+      slider,
     },
   };
 };
