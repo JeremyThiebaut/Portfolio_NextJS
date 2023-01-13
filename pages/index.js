@@ -5,6 +5,7 @@ import Description from "../components/Description";
 import axios from "axios";
 import Project from "../components/Project";
 import Document from "../components/Document";
+import Footer from "../components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +21,7 @@ export default function Home({ profil, project, document }) {
       <Description profil={profil} />
       <Project project={project} />
       <Document document={document} />
+      <Footer siret={profil.siret} />
     </>
   );
 }

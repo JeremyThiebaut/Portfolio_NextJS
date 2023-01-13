@@ -1,0 +1,16 @@
+@import "colors";
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: $blue;
+  color: #fff;
+  font-weight: bold;
+  line-height: 25px;
+  padding: 1rem 0;
+
+  &__link {
+    color: #007bff;
+  }
+}
