@@ -1,0 +1,50 @@
+.document {
+  display: flex;
+  //   justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 40px;
+  }
+
+  &__container {
+    display: flex;
+    justify-content: space-evenly;
+    width: 90vw;
+    flex-wrap: wrap;
+    padding: 40px 0;
+  }
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.7rem;
+    height: fit-content;
+    color: #999;
+    border: solid 1px lightgray;
+
+    & span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 1.5rem;
+      width: 100%;
+    }
+  }
+
+  & hr {
+    width: 100%;
+    margin: 0;
+    border-top: 0.1px solid lightgray;
+    border-bottom: 0.1px solid lightgray;
+  }
+
+  &__picture {
+    width: 10rem;
+    height: auto;
+  }
+}

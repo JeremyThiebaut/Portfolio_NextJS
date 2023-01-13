@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import styles from "../styles/Document.module.scss";
 
 const Document = ({ document }) => {
   const converter = (size) => {
@@ -15,21 +16,31 @@ const Document = ({ document }) => {
   };
 
   return (
-    <div className="">
-      <h2>Mes documents</h2>
-      {document.map((element) => (
-        <Link key={element.id} href={element.link[0].url}>
-          <span>{element.description}</span>
-          <Image
-            src={element.picture[0].url}
-            alt={`image du site ${element.title}`}
-            width={500}
-            height={500}
-            priority
-          />
-          <span>{converter(element.link[0].size)}</span>
-        </Link>
-      ))}
+    <div className={styles.document}>
+      <h2 className={styles.document__title}>Mes documents</h2>
+      <div className={styles.document__container}>
+        {document.map((element) => (
+          <Link
+            target="_blank"
+            key={element.id}
+            href={element.link[0].url}
+            className={styles.document__link}
+          >
+            <span>{element.description}</span>
+            <hr />
+            <Image
+              className={styles.document__picture}
+              src={element.picture[0].url}
+              alt={`image du site ${element.title}`}
+              width={500}
+              height={500}
+              priority
+            />
+            <hr />
+            <span>{converter(element.link[0].size)}</span>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 };

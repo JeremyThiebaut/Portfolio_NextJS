@@ -31,21 +31,20 @@ export const getStaticProps = async () => {
     data: { id: 1 },
   });
 
-  const myProject = await axios({
-    method: "get",
-    url: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/project`,
-  });
+  const projects = await fetch(
+    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/project`
+  );
+  const { project } = await projects.json();
 
   const documents = await fetch(
     `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/document`
   );
   const { document } = await documents.json();
-  console.log(document);
 
   return {
     props: {
       profil: myProfil.data.profil[0],
-      project: myProject.data.project,
+      project,
       document,
     },
   };
