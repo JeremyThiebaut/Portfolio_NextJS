@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   const id = req.body.id;
 
   const response = await base("Profil")
-    .select({ filterByFormula: `{id} = ${id}` })
+    .select({ filterByFormula: `id = ${id}` })
     .firstPage()
     .catch((e) => {
       console.log(e);
