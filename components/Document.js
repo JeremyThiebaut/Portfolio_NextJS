@@ -16,7 +16,7 @@ const Document = ({ document }) => {
   };
 
   return (
-    <div className={styles.document}>
+    <div className={styles.document} id="document">
       <h2 className={styles.document__title}>Mes documents</h2>
       <div className={styles.document__container}>
         {document.map((element) => (

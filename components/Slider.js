@@ -4,6 +4,8 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import styles from "../styles/Slider.module.scss";
 import "animate.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
 const Slider = ({ slider, profil }) => {
   console.log(profil);
@@ -59,11 +61,13 @@ const Slider = ({ slider, profil }) => {
           {profil.profession}
         </h2>
       </div>
-      <div className="slider-button_down">
-        <Link href="/#navBar">
-          <i className="fa fa-angle-down" aria-hidden="true"></i>
-        </Link>
-      </div>
+      <Link className={styles.slider__down} href="/#navBar">
+        <FontAwesomeIcon
+          className={styles.slider__icone}
+          icon={faAngleDown}
+          aria-hidden="true"
+        />
+      </Link>
     </div>
   );
 };

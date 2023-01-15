@@ -4,7 +4,7 @@ import Image from "next/image";
 const Description = ({ profil }) => {
   const picture = profil.picture[0].url;
   return (
-    <div className={styles.description}>
+    <div className={styles.description} id="description">
       <p className={styles.description__text}>{profil.description}</p>
       <Image
         className={styles.description__picture}

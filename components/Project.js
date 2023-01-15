@@ -4,7 +4,7 @@ import styles from "../styles/Project.module.scss";
 
 const Project = ({ project }) => {
   return (
-    <div className={styles.project}>
+    <div className={styles.project} id="project">
       <p className={styles.project__title}>Galeries des projets</p>
       <div className={styles.project__container}>
         <div className={styles.project__projects}>
