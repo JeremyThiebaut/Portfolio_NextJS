@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
 const Slider = ({ slider, profil }) => {
-  console.log(profil);
   return (
     <div className={styles.slider}>
       <Carousel

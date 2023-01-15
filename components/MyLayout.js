@@ -1,10 +1,10 @@
-import Navbar from "./Navbar";
+import BackToTopButton from "./BackToTopButton";
 
 const MyLayout = ({ children }) => {
   return (
     <>
-      <Navbar />
       {children}
+      <BackToTopButton />
     </>
   );
 };
