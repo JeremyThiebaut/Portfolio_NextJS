@@ -17,23 +17,23 @@ const BackToTopButton = () => {
     });
   }, []);
 
-  //   const scrollUp = () => {
-  //     window.scrollTo({
-  //       top: 0,
-  //       behavior: "smooth",
-  //     });
-  //   };
+  const scrollUp = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <div className={styles.backToTopButton}>
       {backToTopButton && (
-        <Link className={styles.backToTopButton} href="/#">
+        <span className={styles.backToTopButton} onClick={scrollUp}>
           <FontAwesomeIcon
             className={styles.backToTopButton__icone}
             icon={faAngleUp}
             aria-hidden="true"
           />
-        </Link>
+        </span>
       )}
     </div>
   );
