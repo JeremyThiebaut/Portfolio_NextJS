@@ -1,5 +1,5 @@
 import axios from "axios";
-import DOMPurify from "dompurify";
+import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
 import styles from "../styles/Mention.module.scss";
 import Navbar from "../components/Navbar";
@@ -7,27 +7,25 @@ import Footer from "../components/Footer";
 import Image from "next/image";
 
 const Mention = ({ mention, slider }) => {
+  console.log(marked(mention));
   return (
-    <>
-      <div className={styles.mention}>
-        <Navbar />
-        <Image
-          src={slider[2].picture[0].url}
-          alt={"picture background of mention"}
-          width={slider[2].picture[0].width}
-          height={slider[2].picture[0].height}
-          priority
-        />
-        <div className={styles.mention__container}>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(marked(mention)),
-            }}
-          />
-        </div>
-        <Footer />
-      </div>
-    </>
+    <div className={styles.mention}>
+      <Navbar />
+      <Image
+        src={slider[2].picture[0].url}
+        alt={"picture background of mention"}
+        width={slider[2].picture[0].width}
+        height={slider[2].picture[0].height}
+        priority
+      />
+      <div
+        className={styles.mention__container}
+        dangerouslySetInnerHTML={{
+          __html: DOMPurify.sanitize(marked(mention)),
+        }}
+      />
+      <Footer />
+    </div>
   );
 };
 

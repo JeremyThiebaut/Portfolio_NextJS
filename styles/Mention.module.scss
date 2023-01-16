@@ -13,5 +13,34 @@
     margin: 4rem auto 0;
     background-color: #fff;
     width: 65vw;
+    padding: 2rem;
+
+    h2 {
+      font-size: 2rem;
+      color: #686b70;
+      text-align: center;
+      padding: 1rem 3rem 3rem;
+    }
+
+    p {
+      margin: 1rem;
+      text-align: justify;
+    }
+
+    ul > li {
+      padding: 1rem 0;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    span {
+      font-weight: bold;
+    }
+
+    a {
+      color: #c36;
+      font-weight: bold;
+      text-decoration: none;
+    }
   }
 }
