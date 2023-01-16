@@ -50,7 +50,6 @@ export const getStaticProps = async () => {
   const sliders = await fetch(
     `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/slider`
   );
-
   const { slider } = await sliders.json();
 
   return {
