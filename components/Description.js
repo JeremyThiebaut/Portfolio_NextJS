@@ -1,11 +1,18 @@
 import styles from "../styles/Description.module.scss";
 import Image from "next/image";
+import DOMPurify from "isomorphic-dompurify";
+import { marked } from "marked";
 
 const Description = ({ profil }) => {
   const picture = profil.picture[0].url;
   return (
     <div className={styles.description} id="description">
-      <p className={styles.description__text}>{profil.description}</p>
+      <div
+        className={styles.description__text}
+        dangerouslySetInnerHTML={{
+          __html: DOMPurify.sanitize(marked(profil.description)),
+        }}
+      />
       <Image
         className={styles.description__picture}
         src={picture}

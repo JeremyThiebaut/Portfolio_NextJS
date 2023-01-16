@@ -1,7 +1,36 @@
+@import "colors.scss";
+
 .oneProject {
   height: 100svh;
 
-  &__container {
-    padding-top: 4rem;
+  &__title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 4rem;
+    padding: 2rem;
+
+    & h1 {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    & a {
+      color: $blue;
+    }
+  }
+
+  &__firstSection {
+    display: flex;
+    align-items: center;
+    width: calc(100% - 4rem);
+    margin: auto;
+
+    & img {
+      width: 100%;
+      max-width: 10rem;
+      height: auto;
+      margin: 2rem;
+    }
   }
 }

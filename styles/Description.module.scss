@@ -1,18 +1,29 @@
 .description {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 75vw;
-    margin: auto;
-    padding: 8rem 0 0;
-  
-    &__text {
-      margin-right: 5rem;
-    }
-  
-    &__picture {
-      width: 30%;
-      height: auto;
-      max-width: 20rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 75vw;
+  margin: auto;
+  padding: 8rem 0 0;
+
+  &__text {
+    margin-right: 5rem;
+
+    & p {
+      margin: 1rem 0;
+
+      &:first-child {
+        margin-top: 0;
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
+
+  &__picture {
+    width: 30%;
+    height: auto;
+    max-width: 20rem;
+  }
+}
