@@ -18,8 +18,8 @@ const Project = ({ project }) => {
                 className={styles.project__picture}
                 src={prod.picture[0].url}
                 alt={`image du site ${prod.title}`}
-                width={500}
-                height={500}
+                width={prod.picture[0].width}
+                height={prod.picture[0].height}
                 priority
               />
               <span className={styles.project__description}>{prod.title}</span>
