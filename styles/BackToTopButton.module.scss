@@ -6,6 +6,7 @@
   cursor: pointer;
   font-size: 2rem;
   color: #007bff;
+  z-index: 100;
 
   &__icone {
     animation: bounce 3s infinite;
