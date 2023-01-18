@@ -4,50 +4,45 @@ import styles from "../styles/Contact.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import { useState } from "react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
 
 const Contact = ({ slider, profil }) => {
-  const [message, setMessage] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [mail, setMail] = useState("");
-  const [phone, setPhone] = useState("");
   const router = useRouter();
+  const { register, handleSubmit } = useForm();
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
+  const onFormSubmit = (send) => {
+    const data = JSON.parse(JSON.stringify(send));
     if (
-      message === "" ||
-      firstName === "" ||
-      lastName === "" ||
-      mail === "" ||
-      phone === ""
+      !data.message ||
+      !data.firstName ||
+      !data.lastName ||
+      !data.mail ||
+      !data.phone
     ) {
       toast("Information manquante.", {
         autoClose: 4000,
         type: "error",
       });
     } else {
-      onFormSubmit();
-    }
-  };
-
-  const onFormSubmit = () => {
-    const response = fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/mail`, {
-      method: "POST",
-      body: JSON.stringify({ message, firstName, lastName, mail, phone }),
-      headers: {
-        "Contenr-Type": "application/json",
-      },
-    }).then((res) => {
-      toast("Mail bien envoyé.", {
-        autoClose: 4000,
-        type: "success",
+      const response = fetch(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/mail`,
+        {
+          method: "POST",
+          body: JSON.stringify(send),
+          headers: {
+            "Contenr-Type": "application/json",
+          },
+        }
+      ).then((res) => {
+        toast("Mail bien envoyé.", {
+          autoClose: 4000,
+          type: "success",
+        });
+        router.push("/");
       });
-      router.push("/");
-    });
+    }
   };
 
   return (
@@ -94,7 +89,10 @@ const Contact = ({ slider, profil }) => {
       </div>
       <div className={styles.contact__right}>
         <div className={styles.contact__right_container}>
-          <form className={styles.contact__right_form} onSubmit={handleSubmit}>
+          <form
+            className={styles.contact__right_form}
+            onSubmit={handleSubmit(onFormSubmit)}
+          >
             <h2 className={styles.contact__right_title}>
               Envoyez-nous un email
             </h2>
@@ -112,8 +110,7 @@ const Contact = ({ slider, profil }) => {
                       name="firstName"
                       type="text"
                       placeholder="Nom"
-                      onChange={(e) => setFirstName(e.target.value)}
-                      value={firstName}
+                      {...register("firstName")}
                       required
                     />
                   </td>
@@ -123,8 +120,7 @@ const Contact = ({ slider, profil }) => {
                       name="lastName"
                       type="text"
                       placeholder="Prénom"
-                      onChange={(e) => setLastName(e.target.value)}
-                      value={lastName}
+                      {...register("lastName")}
                       required
                     />
                   </td>
@@ -145,8 +141,7 @@ const Contact = ({ slider, profil }) => {
                       name="mail"
                       type="email"
                       placeholder="Ex: exemple@email.com"
-                      onChange={(e) => setMail(e.target.value)}
-                      value={mail}
+                      {...register("mail")}
                       required
                     />
                   </td>
@@ -168,8 +163,7 @@ const Contact = ({ slider, profil }) => {
                       pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"
                       placeholder="+33 6 00 00 00 00"
                       name="phone"
-                      onChange={(e) => setPhone(e.target.value)}
-                      value={phone}
+                      {...register("phone")}
                       required
                     />
                   </td>
@@ -189,8 +183,7 @@ const Contact = ({ slider, profil }) => {
                       placeholder="Ecrivez votre message"
                       name="message"
                       rows="5"
-                      onChange={(e) => setMessage(e.target.value)}
-                      value={message}
+                      {...register("message")}
                       required
                     ></textarea>
                   </td>
