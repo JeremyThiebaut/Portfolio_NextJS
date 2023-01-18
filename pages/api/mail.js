@@ -45,12 +45,11 @@ const handler = async (req, res) => {
         ...mailOptions,
         to: `"${data.firstName} ${data.lastName}" <${data.mail}>'`,
         subject: "Email du site",
-        // text: data.message,
         html: `<h1>Message envoyé depuis la page Contact de jtdev.fr</h1>
-        <p><b>Nom, Prénom : </b>${data.firstame} ${data.lastName}<br>
+        <p><b>Nom, Prénom : </b>${data.firstName} ${data.lastName}<br>
         <b>Email : </b>${data.mail}<br>
         <b>Numéro : </b>${data.phone}<br>
-        <b>Message : </b>${newMessage}</p>"`,
+        <b>Message : </b><br/>${newMessage}</p>`,
       });
 
       console.log("Send mail success.");
