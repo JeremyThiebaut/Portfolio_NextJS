@@ -18,7 +18,20 @@ const Contact = ({ slider, profil }) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    onFormSubmit();
+    if (
+      message === "" ||
+      firstName === "" ||
+      lastName === "" ||
+      mail === "" ||
+      phone === ""
+    ) {
+      toast("Information manquante.", {
+        autoClose: 4000,
+        type: "error",
+      });
+    } else {
+      onFormSubmit();
+    }
   };
 
   const onFormSubmit = () => {
@@ -30,8 +43,7 @@ const Contact = ({ slider, profil }) => {
       },
     }).then((res) => {
       toast("Mail bien envoyé.", {
-        hideProgressBar: true,
-        autoClose: 2000,
+        autoClose: 4000,
         type: "success",
       });
       router.push("/");
