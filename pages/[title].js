@@ -6,6 +6,8 @@ import styles from "../styles/OnProject.module.scss";
 import Image from "next/image";
 import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
+const Airtable = require("airtable");
+const { AIRTABLE_API_KEY, AIRTABLE_BASE_ID } = process.env;
 
 const OneProject = ({ project }) => {
   const listPictures = [];
@@ -103,10 +105,24 @@ const OneProject = ({ project }) => {
 export default OneProject;
 
 export const getStaticPaths = async () => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/project`
+  const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
+    AIRTABLE_BASE_ID
   );
-  const { project } = await response.json();
+
+  const response = await base("Project")
+    .select({})
+    .firstPage()
+    .catch((e) => {
+      console.log(e);
+    });
+
+  const project = response.map((record) => {
+    return {
+      id: record.id,
+      ...record.fields,
+    };
+  });
+  // const { project } = await response.json();
   const paths = project.map((p) => ({ params: { title: p.title.toString() } }));
   return {
     paths,
@@ -115,14 +131,27 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }) => {
-  const project = await axios({
-    method: "get",
-    url: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/project`,
-    data: params,
+  const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
+    AIRTABLE_BASE_ID
+  );
+
+  const response = await base("Project")
+    .select({ filterByFormula: `title = "${params.title}"` })
+    .firstPage()
+    .catch((e) => {
+      console.log(e);
+    });
+
+  const project = response.map((record) => {
+    return {
+      id: record.id,
+      ...record.fields,
+    };
   });
+
   return {
     props: {
-      project: project.data.project[0],
+      project: project[0],
     },
   };
 };

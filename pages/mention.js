@@ -34,12 +34,12 @@ export default Mention;
 export const getStaticProps = async () => {
   const myProfil = await axios({
     method: "get",
-    url: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/profil`,
+    url: `/api/profil`,
     data: { id: 1 },
   });
 
   const sliders = await fetch(
-    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/slider`
+    `/api/slider`
   );
   const { slider } = await sliders.json();
   return {
