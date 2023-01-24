@@ -74,5 +74,6 @@ export const getStaticProps = async () => {
       mention: profil[0].legalNotice,
       slider,
     },
+    revalidate: 1,
   };
 };

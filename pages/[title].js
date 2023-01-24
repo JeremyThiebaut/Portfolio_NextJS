@@ -153,5 +153,6 @@ export const getStaticProps = async ({ params }) => {
     props: {
       project: project[0],
     },
+    revalidate: 1,
   };
 };

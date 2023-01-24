@@ -112,5 +112,6 @@ export const getStaticProps = async () => {
       document,
       slider,
     },
+    revalidate: 1,
   };
 };

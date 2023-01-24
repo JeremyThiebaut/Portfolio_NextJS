@@ -251,5 +251,6 @@ export const getStaticProps = async () => {
       profil: profil[0],
       slider,
     },
+    revalidate: 1,
   };
 };
