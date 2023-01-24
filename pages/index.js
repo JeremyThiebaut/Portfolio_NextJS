@@ -8,6 +8,8 @@ import Document from "../components/Document";
 import Footer from "../components/Footer";
 import Slider from "../components/Slider";
 import Navbar from "../components/Navbar";
+const Airtable = require("airtable");
+const { AIRTABLE_API_KEY, AIRTABLE_BASE_ID } = process.env;
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,30 +33,81 @@ export default function Home({ profil, project, document, slider }) {
 }
 
 export const getStaticProps = async () => {
-  const myProfil = await axios({
-    method: "get",
-    url: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/profil`,
-    data: { id: 1 },
+  const myProfil = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
+    AIRTABLE_BASE_ID
+  );
+
+  const response = await myProfil("Profil")
+    .select({ filterByFormula: `id = 1` })
+    .firstPage()
+    .catch((e) => {
+      console.log(e);
+    });
+
+  const profil = response.map((record) => {
+    return {
+      id: record.id,
+      ...record.fields,
+    };
   });
 
-  const projects = await fetch(
-    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/project`
+  const projects = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
+    AIRTABLE_BASE_ID
   );
-  const { project } = await projects.json();
 
-  const documents = await fetch(
-    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/document`
-  );
-  const { document } = await documents.json();
+  const secondResponse = await projects("Project")
+    .select({})
+    .firstPage()
+    .catch((e) => {
+      console.log(e);
+    });
 
-  const sliders = await fetch(
-    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/slider`
+  const project = secondResponse.map((record) => {
+    return {
+      id: record.id,
+      ...record.fields,
+    };
+  });
+
+  const documents = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
+    AIRTABLE_BASE_ID
   );
-  const { slider } = await sliders.json();
+
+  const ThirdResponse = await documents("Document")
+    .select({})
+    .firstPage()
+    .catch((e) => {
+      console.log(e);
+    });
+
+  const document = ThirdResponse.map((record) => {
+    return {
+      id: record.id,
+      ...record.fields,
+    };
+  });
+
+  const secondBase = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
+    AIRTABLE_BASE_ID
+  );
+
+  const fourthResponse = await secondBase("Carousel")
+    .select({})
+    .firstPage()
+    .catch((e) => {
+      console.log(e);
+    });
+
+  const slider = fourthResponse.map((record) => {
+    return {
+      id: record.id,
+      ...record.fields,
+    };
+  });
 
   return {
     props: {
-      profil: myProfil.data.profil[0],
+      profil: profil[0],
       project,
       document,
       slider,

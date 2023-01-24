@@ -7,6 +7,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
+const Airtable = require("airtable");
+const { AIRTABLE_API_KEY, AIRTABLE_BASE_ID } = process.env;
 
 const Contact = ({ slider, profil }) => {
   const router = useRouter();
@@ -26,16 +28,13 @@ const Contact = ({ slider, profil }) => {
         type: "error",
       });
     } else {
-      const response = fetch(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/mail`,
-        {
-          method: "POST",
-          body: JSON.stringify(send),
-          headers: {
-            "Contenr-Type": "application/json",
-          },
-        }
-      ).then((res) => {
+      const response = fetch(`/api/mail`, {
+        method: "POST",
+        body: JSON.stringify(send),
+        headers: {
+          "Contenr-Type": "application/json",
+        },
+      }).then((res) => {
         toast("Mail bien envoyé.", {
           autoClose: 4000,
           type: "success",
@@ -211,19 +210,45 @@ const Contact = ({ slider, profil }) => {
 export default Contact;
 
 export const getStaticProps = async () => {
-  const myProfil = await axios({
-    method: "get",
-    url: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/profil`,
-    data: { id: 1 },
+  const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
+    AIRTABLE_BASE_ID
+  );
+
+  const response = await base("Profil")
+    .select({ filterByFormula: `id = 1` })
+    .firstPage()
+    .catch((e) => {
+      console.log(e);
+    });
+
+  const profil = response.map((record) => {
+    return {
+      id: record.id,
+      ...record.fields,
+    };
   });
 
-  const sliders = await fetch(
-    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/slider`
+  const secondBase = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
+    AIRTABLE_BASE_ID
   );
-  const { slider } = await sliders.json();
+
+  const secondResponse = await secondBase("Carousel")
+    .select({})
+    .firstPage()
+    .catch((e) => {
+      console.log(e);
+    });
+
+  const slider = secondResponse.map((record) => {
+    return {
+      id: record.id,
+      ...record.fields,
+    };
+  });
+
   return {
     props: {
-      profil: myProfil.data.profil[0],
+      profil: profil[0],
       slider,
     },
   };

@@ -5,9 +5,10 @@ import styles from "../styles/Mention.module.scss";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Image from "next/image";
+const Airtable = require("airtable");
+const { AIRTABLE_API_KEY, AIRTABLE_BASE_ID } = process.env;
 
 const Mention = ({ mention, slider }) => {
-  console.log(marked(mention));
   return (
     <div className={styles.mention}>
       <Navbar />
@@ -32,19 +33,45 @@ const Mention = ({ mention, slider }) => {
 export default Mention;
 
 export const getStaticProps = async () => {
-  const myProfil = await axios({
-    method: "get",
-    url: `/api/profil`,
-    data: { id: 1 },
+  const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
+    AIRTABLE_BASE_ID
+  );
+
+  const response = await base("Profil")
+    .select({ filterByFormula: `id = 1` })
+    .firstPage()
+    .catch((e) => {
+      console.log(e);
+    });
+
+  const profil = response.map((record) => {
+    return {
+      id: record.id,
+      ...record.fields,
+    };
   });
 
-  const sliders = await fetch(
-    `/api/slider`
+  const secondBase = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
+    AIRTABLE_BASE_ID
   );
-  const { slider } = await sliders.json();
+
+  const secondResponse = await secondBase("Carousel")
+    .select({})
+    .firstPage()
+    .catch((e) => {
+      console.log(e);
+    });
+
+  const slider = secondResponse.map((record) => {
+    return {
+      id: record.id,
+      ...record.fields,
+    };
+  });
+
   return {
     props: {
-      mention: myProfil.data.profil[0].legalNotice,
+      mention: profil[0].legalNotice,
       slider,
     },
   };
