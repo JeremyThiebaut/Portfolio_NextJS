@@ -46,7 +46,7 @@ const OneProject = ({ project }) => {
                 <div className={styles}>
                   <p>
                     Pour la réalisation de ce projet je me suis servie de ses
-                    technos:
+                    technos truc much:
                   </p>
                   {project.SkilTitle.map((spe, index) => (
                     <div key={index} className={styles.oneProject__skil}>
