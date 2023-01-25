@@ -1,8 +1,6 @@
 import Head from "next/head";
-import { Inter } from "@next/font/google";
 import "../styles/Home.module.scss";
 import Description from "../components/Description";
-import axios from "axios";
 import Project from "../components/Project";
 import Document from "../components/Document";
 import Footer from "../components/Footer";
@@ -10,8 +8,6 @@ import Slider from "../components/Slider";
 import Navbar from "../components/Navbar";
 const Airtable = require("airtable");
 const { AIRTABLE_API_KEY, AIRTABLE_BASE_ID } = process.env;
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({ profil, project, document, slider }) {
   return (
@@ -33,77 +29,31 @@ export default function Home({ profil, project, document, slider }) {
 }
 
 export const getStaticProps = async () => {
-  const myProfil = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
-    AIRTABLE_BASE_ID
-  );
+  const Api = async (data, filter) => {
+    const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
+      AIRTABLE_BASE_ID
+    );
 
-  const response = await myProfil("Profil")
-    .select({ filterByFormula: `id = 1` })
-    .firstPage()
-    .catch((e) => {
-      console.log(e);
+    const response = await base(data)
+      .select(filter)
+      .firstPage()
+      .catch((e) => {
+        console.log(e);
+      });
+
+    const records = response.map((record) => {
+      return {
+        id: record.id,
+        ...record.fields,
+      };
     });
+    return records;
+  };
 
-  const profil = response.map((record) => {
-    return {
-      id: record.id,
-      ...record.fields,
-    };
-  });
-
-  const projects = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
-    AIRTABLE_BASE_ID
-  );
-
-  const secondResponse = await projects("Project")
-    .select({})
-    .firstPage()
-    .catch((e) => {
-      console.log(e);
-    });
-
-  const project = secondResponse.map((record) => {
-    return {
-      id: record.id,
-      ...record.fields,
-    };
-  });
-
-  const documents = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
-    AIRTABLE_BASE_ID
-  );
-
-  const ThirdResponse = await documents("Document")
-    .select({})
-    .firstPage()
-    .catch((e) => {
-      console.log(e);
-    });
-
-  const document = ThirdResponse.map((record) => {
-    return {
-      id: record.id,
-      ...record.fields,
-    };
-  });
-
-  const secondBase = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
-    AIRTABLE_BASE_ID
-  );
-
-  const fourthResponse = await secondBase("Carousel")
-    .select({})
-    .firstPage()
-    .catch((e) => {
-      console.log(e);
-    });
-
-  const slider = fourthResponse.map((record) => {
-    return {
-      id: record.id,
-      ...record.fields,
-    };
-  });
+  const profil = await Api("Profil", { filterByFormula: `id = 1` });
+  const project = await Api("Project", {});
+  const document = await Api("Document", {});
+  const slider = await Api("Carousel", {});
 
   return {
     props: {
@@ -112,6 +62,6 @@ export const getStaticProps = async () => {
       document,
       slider,
     },
-    revalidate: 1,
+    revalidate: 60,
   };
 };

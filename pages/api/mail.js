@@ -40,10 +40,9 @@ const handler = async (req, res) => {
         });
 
       const newMessage = data.message.split("\n").join("<br/>");
-
       await transporter.sendMail({
+        from: `"${data.firstName} ${data.lastName}" <${data.mail}>'`,
         ...mailOptions,
-        to: `"${data.firstName} ${data.lastName}" <${data.mail}>'`,
         subject: "Email du site",
         html: `<h1>Message envoyé depuis la page Contact de jtdev.fr</h1>
         <p><b>Nom, Prénom : </b>${data.firstName} ${data.lastName}<br>

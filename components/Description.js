@@ -4,7 +4,6 @@ import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
 
 const Description = ({ profil }) => {
-  const picture = profil.picture[0].url;
   return (
     <div className={styles.description} id="description">
       <div
@@ -15,7 +14,7 @@ const Description = ({ profil }) => {
       />
       <Image
         className={styles.description__picture}
-        src={picture}
+        src={profil.picture[0].thumbnails.large.url}
         alt="Image de profil"
         width={500}
         height={500}

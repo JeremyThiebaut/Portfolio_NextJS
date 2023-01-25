@@ -11,7 +11,6 @@ const Slider = ({ slider, profil }) => {
   return (
     <div className={styles.slider}>
       <Carousel
-        // id="carousel"
         interval={5000}
         transitionTime={1000}
         swipeable={true}
@@ -29,7 +28,7 @@ const Slider = ({ slider, profil }) => {
           <div key={slide.id}>
             <Image
               className={styles.slider__picture}
-              src={slide.picture[0].url}
+              src={slide.picture[0].thumbnails.full.url}
               alt={slide.description}
               width={500}
               height={500}

@@ -13,7 +13,7 @@ const Mention = ({ mention, slider }) => {
     <div className={styles.mention}>
       <Navbar />
       <Image
-        src={slider[2].picture[0].url}
+        src={slider[2].picture[0].thumbnails.full.url}
         alt={"picture background of mention"}
         width={slider[2].picture[0].width}
         height={slider[2].picture[0].height}
@@ -33,47 +33,35 @@ const Mention = ({ mention, slider }) => {
 export default Mention;
 
 export const getStaticProps = async () => {
-  const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
-    AIRTABLE_BASE_ID
-  );
+  const Api = async (data, filter) => {
+    const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
+      AIRTABLE_BASE_ID
+    );
 
-  const response = await base("Profil")
-    .select({ filterByFormula: `id = 1` })
-    .firstPage()
-    .catch((e) => {
-      console.log(e);
+    const response = await base(data)
+      .select(filter)
+      .firstPage()
+      .catch((e) => {
+        console.log(e);
+      });
+
+    const records = response.map((record) => {
+      return {
+        id: record.id,
+        ...record.fields,
+      };
     });
+    return records;
+  };
 
-  const profil = response.map((record) => {
-    return {
-      id: record.id,
-      ...record.fields,
-    };
-  });
-
-  const secondBase = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
-    AIRTABLE_BASE_ID
-  );
-
-  const secondResponse = await secondBase("Carousel")
-    .select({})
-    .firstPage()
-    .catch((e) => {
-      console.log(e);
-    });
-
-  const slider = secondResponse.map((record) => {
-    return {
-      id: record.id,
-      ...record.fields,
-    };
-  });
+  const profil = await Api("Profil", { filterByFormula: `id = 1` });
+  const slider = await Api("Carousel", {});
 
   return {
     props: {
       mention: profil[0].legalNotice,
       slider,
     },
-    revalidate: 1,
+    revalidate: 60,
   };
 };

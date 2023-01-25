@@ -30,7 +30,7 @@ const Document = ({ document }) => {
             <hr />
             <Image
               className={styles.document__picture}
-              src={element.picture[0].url}
+              src={element.picture[0].thumbnails.large.url}
               alt={`image du site ${element.title}`}
               width={500}
               height={500}

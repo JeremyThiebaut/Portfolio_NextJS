@@ -1,5 +1,4 @@
 import Image from "next/image";
-import axios from "axios";
 import styles from "../styles/Contact.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
@@ -31,9 +30,6 @@ const Contact = ({ slider, profil }) => {
       const response = fetch(`/api/mail`, {
         method: "POST",
         body: JSON.stringify(send),
-        headers: {
-          "Contenr-Type": "application/json",
-        },
       }).then((res) => {
         toast("Mail bien envoyé.", {
           autoClose: 4000,
@@ -49,7 +45,7 @@ const Contact = ({ slider, profil }) => {
       <div className={styles.contact__left}>
         <Image
           className={styles.contact__left_picture}
-          src={slider[2].picture[0].url}
+          src={slider[2].picture[0].thumbnails.full.url}
           alt={"picture background of mention"}
           width={slider[2].picture[0].width}
           height={slider[2].picture[0].height}
@@ -210,47 +206,35 @@ const Contact = ({ slider, profil }) => {
 export default Contact;
 
 export const getStaticProps = async () => {
-  const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
-    AIRTABLE_BASE_ID
-  );
+  const Api = async (data, filter) => {
+    const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
+      AIRTABLE_BASE_ID
+    );
 
-  const response = await base("Profil")
-    .select({ filterByFormula: `id = 1` })
-    .firstPage()
-    .catch((e) => {
-      console.log(e);
+    const response = await base(data)
+      .select(filter)
+      .firstPage()
+      .catch((e) => {
+        console.log(e);
+      });
+
+    const records = response.map((record) => {
+      return {
+        id: record.id,
+        ...record.fields,
+      };
     });
+    return records;
+  };
 
-  const profil = response.map((record) => {
-    return {
-      id: record.id,
-      ...record.fields,
-    };
-  });
-
-  const secondBase = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
-    AIRTABLE_BASE_ID
-  );
-
-  const secondResponse = await secondBase("Carousel")
-    .select({})
-    .firstPage()
-    .catch((e) => {
-      console.log(e);
-    });
-
-  const slider = secondResponse.map((record) => {
-    return {
-      id: record.id,
-      ...record.fields,
-    };
-  });
+  const profil = await Api("Profil", { filterByFormula: `id = 1` });
+  const slider = await Api("Carousel", {});
 
   return {
     props: {
       profil: profil[0],
       slider,
     },
-    revalidate: 1,
+    revalidate: 60,
   };
 };

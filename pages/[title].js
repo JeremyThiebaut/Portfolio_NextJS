@@ -1,5 +1,4 @@
 import Link from "next/link";
-import axios from "axios";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import styles from "../styles/OnProject.module.scss";
@@ -27,7 +26,7 @@ const OneProject = ({ project }) => {
             return (
               <div key={element.id} className={styles.oneProject__section}>
                 <Image
-                  src={element.url}
+                  src={element.thumbnails.large.url}
                   alt={element.filename}
                   width={element.width}
                   height={element.height}
@@ -53,7 +52,7 @@ const OneProject = ({ project }) => {
                     <div key={index} className={styles.oneProject__skil}>
                       <p>{spe}</p>
                       <Image
-                        src={project.SkilPicture[index].url}
+                        src={project.SkilPicture[index].thumbnails.large.url}
                         alt={project.SkilPicture[index].filename}
                         width={project.SkilPicture[index].width}
                         height={project.SkilPicture[index].height}
@@ -63,7 +62,7 @@ const OneProject = ({ project }) => {
                   ))}
                 </div>
                 <Image
-                  src={element.url}
+                  src={element.thumbnails.full.url}
                   alt={element.filename}
                   width={element.width}
                   height={element.height}
@@ -87,7 +86,7 @@ const OneProject = ({ project }) => {
             {listPictures.map((list) => (
               <Image
                 key={list.id}
-                src={list.url}
+                src={list.thumbnails.full.url}
                 alt={list.filename}
                 width={list.width}
                 height={list.height}
@@ -105,25 +104,32 @@ const OneProject = ({ project }) => {
 export default OneProject;
 
 export const getStaticPaths = async () => {
-  const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
-    AIRTABLE_BASE_ID
-  );
+  const Api = async (data, filter) => {
+    const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
+      AIRTABLE_BASE_ID
+    );
 
-  const response = await base("Project")
-    .select({})
-    .firstPage()
-    .catch((e) => {
-      console.log(e);
+    const response = await base(data)
+      .select(filter)
+      .firstPage()
+      .catch((e) => {
+        console.log(e);
+      });
+
+    const records = response.map((record) => {
+      return {
+        id: record.id,
+        ...record.fields,
+      };
     });
+    return records;
+  };
 
-  const project = response.map((record) => {
-    return {
-      id: record.id,
-      ...record.fields,
-    };
-  });
-  // const { project } = await response.json();
-  const paths = project.map((p) => ({ params: { title: p.title.toString() } }));
+  const project = await Api("Project", {});
+
+  const paths = await project.map((p) => ({
+    params: { title: p.title.toString() },
+  }));
   return {
     paths,
     fallback: false,
@@ -131,28 +137,35 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }) => {
-  const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
-    AIRTABLE_BASE_ID
-  );
+  const Api = async (data, filter) => {
+    const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
+      AIRTABLE_BASE_ID
+    );
 
-  const response = await base("Project")
-    .select({ filterByFormula: `title = "${params.title}"` })
-    .firstPage()
-    .catch((e) => {
-      console.log(e);
+    const response = await base(data)
+      .select(filter)
+      .firstPage()
+      .catch((e) => {
+        console.log(e);
+      });
+
+    const records = response.map((record) => {
+      return {
+        id: record.id,
+        ...record.fields,
+      };
     });
+    return records;
+  };
 
-  const project = response.map((record) => {
-    return {
-      id: record.id,
-      ...record.fields,
-    };
+  const project = await Api("Project", {
+    filterByFormula: `title = "${params.title}"`,
   });
 
   return {
     props: {
       project: project[0],
     },
-    revalidate: 1,
+    revalidate: 60,
   };
 };
