@@ -18,17 +18,101 @@
   }
 
   &__nav {
-    margin-right: 10%;
-    display: flex;
-    justify-content: flex-end;
+    &_windows {
+      margin-right: 10%;
+      display: flex;
+      justify-content: flex-end;
 
-    & > * {
-      color: #fff;
-      margin-left: auto;
-      margin: 0 1vw;
+      & > * {
+        color: #fff;
+        margin-left: auto;
+        margin: 0 1vw;
 
-      &:last-child {
-        margin: 0 0 0 1vw;
+        &:last-child {
+          margin: 0 0 0 1vw;
+        }
+      }
+    }
+
+    &_phone,
+    &_phone_open,
+    &_linkPhone {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .navbar__nav {
+    &_windows {
+      display: none;
+    }
+    &_phone {
+      display: block;
+      &_open {
+        display: block;
+      }
+    }
+    &_phone,
+    &_phone_open {
+      width: 42px;
+      height: 24px;
+      cursor: pointer;
+      position: relative;
+      margin-right: 1rem;
+      & span {
+        pointer-events: none;
+        width: 100%;
+        height: 4px;
+        background-color: #111827;
+        display: block;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: background-color 0.5s ease-in-out;
+        border-radius: 50px;
+        &::before,
+        &::after {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 4px;
+          background-color: #111827;
+          border-radius: 50px;
+          transition: transform 0.5s ease-in-out;
+        }
+        &::before {
+          transform: translateY(-10px);
+        }
+        &::after {
+          transform: translateY(10px);
+        }
+      }
+      &_open {
+        & span {
+          background-color: transparent;
+        }
+
+        & span::before {
+          transform: translateY(0px) rotateZ(-45deg);
+        }
+
+        & span::after {
+          transform: translateY(0px) rotateZ(45deg);
+        }
+      }
+    }
+    &_linkPhone {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      right: 0;
+      top: 4rem;
+      background-color: $blue;
+
+      & a {
+        color: #fff;
+        margin: 0.3rem;
       }
     }
   }
