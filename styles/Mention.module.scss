@@ -14,7 +14,7 @@
   &__container {
     margin: 4rem auto 0;
     background-color: #fff;
-    width: 65vw;
+    width: 65svw;
     padding: 2rem;
 
     h2 {
@@ -51,6 +51,13 @@
   .mention {
     &__container {
       width: auto;
+      padding: 1rem;
+
+      p {
+        margin: 0.5rem;
+        text-align: initial;
+        font-size: 0.8rem;
+      }
     }
   }
 }

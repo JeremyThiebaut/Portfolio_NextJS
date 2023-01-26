@@ -5,6 +5,7 @@
 
   &__left {
     width: 50%;
+    overflow: auto;
     display: flex;
 
     &_picture {
@@ -117,17 +118,7 @@
       align-items: center;
     }
 
-    &_back {
-      font-weight: bold;
-      color: #fff;
-      background-color: #0d6efd;
-      line-height: 1.5;
-      padding: 0.375rem 0.75rem;
-      border-radius: 0.25rem;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
+    &_back,
     &_send {
       font-weight: bold;
       color: #fff;
@@ -139,6 +130,10 @@
       font-size: 1rem;
       cursor: pointer;
     }
+
+    &_back {
+      background-color: #0d6efd;
+    }
   }
 }
 
@@ -147,6 +142,7 @@
     &__left {
       width: 4rem;
       height: 100%;
+      font-size: 0.7rem;
 
       &_container {
         width: 4rem;
@@ -155,7 +151,7 @@
       &_global {
         display: flex;
         transform: rotateZ(90deg);
-        width: 100vh;
+        width: 100svh;
         justify-content: space-around;
       }
 
@@ -188,7 +184,7 @@
 
       &_back,
       &_send {
-        font-size: 75%;
+        font-size: 70%;
       }
     }
   }

@@ -17,7 +17,7 @@
 
     & a {
       font-weight: bold;
-      color: $blue;
+      color: lightcoral;
     }
   }
 
@@ -73,8 +73,44 @@
   &__link {
     display: flex;
     justify-content: center;
-    color: $blue;
+    color: lightcoral;
     margin: -2rem 0 2rem;
     font-weight: bold;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .oneProject {
+    &__section {
+      flex-direction: column;
+      margin-bottom: 2rem;
+      align-items: initial;
+
+      &:last-child {
+        flex-direction: column-reverse;
+      }
+
+      & > img {
+        max-width: none;
+        margin-bottom: 2rem;
+      }
+    }
+
+    &__allSection > :first-child {
+      margin-bottom: 2rem;
+    }
+
+    &__description {
+      max-width: none;
+    }
+
+    &__link,
+    &__title a {
+      margin-top: 2rem;
+    }
+
+    &__skil {
+      margin-left: 10%;
+    }
   }
 }

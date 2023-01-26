@@ -13,6 +13,10 @@ const Contact = ({ slider, profil }) => {
   const router = useRouter();
   const { register, handleSubmit } = useForm();
 
+  const redirect = () => {
+    router.push("/");
+  };
+
   const onFormSubmit = async (send) => {
     const data = JSON.parse(JSON.stringify(send));
     if (
@@ -35,7 +39,7 @@ const Contact = ({ slider, profil }) => {
           autoClose: 4000,
           type: "success",
         });
-        router.push("/");
+        redirect();
       });
     }
   };
@@ -186,10 +190,12 @@ const Contact = ({ slider, profil }) => {
               </tbody>
             </table>
             <div className={styles.contact__right_choice}>
-              <Link
+              <input
+                type="button"
                 className={styles.contact__right_back}
-                href="/"
-              >{`Retour a l'accueil`}</Link>
+                onClick={redirect}
+                value={`Retour a l'accueil`}
+              />
               <input
                 className={styles.contact__right_send}
                 type="submit"

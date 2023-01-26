@@ -21,59 +21,61 @@ const OneProject = ({ project, logo }) => {
             {project.url}
           </Link>
         </div>
-        {project.picture.map((element, index) => {
-          if (index === 0) {
-            return (
-              <div key={element.id} className={styles.oneProject__section}>
-                <Image
-                  src={element.thumbnails.large.url}
-                  alt={element.filename}
-                  width={element.width}
-                  height={element.height}
-                  priority
-                />
-                <div
-                  className={styles.oneProject__description}
-                  dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(marked(project.description)),
-                  }}
-                />
-              </div>
-            );
-          } else if (index === 1) {
-            return (
-              <div key={element.id} className={styles.oneProject__section}>
-                <div className={styles}>
-                  <p>
-                    Pour la réalisation de ce projet je me suis servie de ses
-                    technos:
-                  </p>
-                  {project.SkilTitle.map((spe, index) => (
-                    <div key={index} className={styles.oneProject__skil}>
-                      <p>{spe}</p>
-                      <Image
-                        src={project.SkilPicture[index].thumbnails.large.url}
-                        alt={project.SkilPicture[index].filename}
-                        width={project.SkilPicture[index].width}
-                        height={project.SkilPicture[index].height}
-                        priority
-                      />
-                    </div>
-                  ))}
+        <div className={styles.oneProject__info}>
+          {project.picture.map((element, index) => {
+            if (index === 0) {
+              return (
+                <div key={element.id} className={styles.oneProject__section}>
+                  <Image
+                    src={element.thumbnails.large.url}
+                    alt={element.filename}
+                    width={element.width}
+                    height={element.height}
+                    priority
+                  />
+                  <div
+                    className={styles.oneProject__description}
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(marked(project.description)),
+                    }}
+                  />
                 </div>
-                <Image
-                  src={element.thumbnails.full.url}
-                  alt={element.filename}
-                  width={element.width}
-                  height={element.height}
-                  priority
-                />
-              </div>
-            );
-          } else if (index > 2 || index <= 5) {
-            listPictures.push(element);
-          }
-        })}
+              );
+            } else if (index === 1) {
+              return (
+                <div key={element.id} className={styles.oneProject__section}>
+                  <div className={styles.oneProject__allSection}>
+                    <p>
+                      Pour la réalisation de ce projet je me suis servie de ses
+                      technos:
+                    </p>
+                    {project.SkilTitle.map((spe, index) => (
+                      <div key={index} className={styles.oneProject__skil}>
+                        <p>{spe}</p>
+                        <Image
+                          src={project.SkilPicture[index].thumbnails.large.url}
+                          alt={project.SkilPicture[index].filename}
+                          width={project.SkilPicture[index].width}
+                          height={project.SkilPicture[index].height}
+                          priority
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  <Image
+                    src={element.thumbnails.full.url}
+                    alt={element.filename}
+                    width={element.width}
+                    height={element.height}
+                    priority
+                  />
+                </div>
+              );
+            } else if (index > 2 || index <= 5) {
+              listPictures.push(element);
+            }
+          })}
+        </div>
         <Link
           href={project.url}
           target="_blank"

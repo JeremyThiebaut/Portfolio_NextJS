@@ -1,13 +1,13 @@
 .slider {
   &__picture {
     object-fit: cover;
-    height: 100vh;
+    height: 100svh;
   }
 
   &__container {
     position: absolute;
     background-color: rgba(0, 0, 0, 0.6);
-    height: 100vh;
+    height: 100svh;
     top: 0;
     width: 100%;
     z-index: 1;
@@ -19,7 +19,7 @@
 
   &__top {
     color: #fff;
-    font-size: 4vw;
+    font-size: 4svw;
     line-height: 0.7;
     letter-spacing: 2px;
     margin: 0;
@@ -29,7 +29,7 @@
   }
 
   &__middle {
-    width: 42vw;
+    width: 42svw;
     margin: 3px 0;
     background-color: lightgray;
     border: 1px solid lightgray;
@@ -39,7 +39,7 @@
 
   &__bottom {
     color: #007bff;
-    font-size: 4vw;
+    font-size: 4svw;
     line-height: 0.74;
     margin: 0;
     transition: all 0.5s ease;
@@ -52,7 +52,7 @@
     left: 0;
     right: 0;
     text-align: center;
-    bottom: 5vh;
+    bottom: 5svh;
     font-size: 2em;
     z-index: 2;
   }
