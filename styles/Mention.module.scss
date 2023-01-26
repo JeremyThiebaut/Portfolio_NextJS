@@ -2,9 +2,10 @@
   height: 100svh;
   overflow: auto;
 
-  img {
+  & > img {
     object-fit: cover;
     height: 100%;
+    width: 100%;
     position: fixed;
     z-index: -1;
     filter: grayscale(100%);
@@ -42,6 +43,14 @@
       color: #c36;
       font-weight: bold;
       text-decoration: none;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .mention {
+    &__container {
+      width: auto;
     }
   }
 }

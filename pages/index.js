@@ -9,7 +9,7 @@ import Navbar from "../components/Navbar";
 const Airtable = require("airtable");
 const { AIRTABLE_API_KEY, AIRTABLE_BASE_ID } = process.env;
 
-export default function Home({ profil, project, document, slider }) {
+export default function Home({ profil, project, document, slider, logo }) {
   return (
     <>
       <Head>
@@ -19,7 +19,7 @@ export default function Home({ profil, project, document, slider }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Slider slider={slider} profil={profil} />
-      <Navbar />
+      <Navbar logo={logo} />
       <Description profil={profil} />
       <Project project={project} />
       <Document document={document} />
@@ -41,7 +41,7 @@ export const getStaticProps = async () => {
         console.log(e);
       });
 
-    const records = response.map((record) => {
+    const records = await response.map((record) => {
       return {
         id: record.id,
         ...record.fields,
@@ -54,13 +54,13 @@ export const getStaticProps = async () => {
   const project = await Api("Project", {});
   const document = await Api("Document", {});
   const slider = await Api("Carousel", {});
-
   return {
     props: {
       profil: profil[0],
       project,
       document,
       slider,
+      logo: profil[0].logo[0],
     },
     revalidate: 60,
   };

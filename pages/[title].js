@@ -8,12 +8,12 @@ import { marked } from "marked";
 const Airtable = require("airtable");
 const { AIRTABLE_API_KEY, AIRTABLE_BASE_ID } = process.env;
 
-const OneProject = ({ project }) => {
+const OneProject = ({ project, logo }) => {
   const listPictures = [];
 
   return (
     <>
-      <Navbar />
+      <Navbar logo={logo} />
       <div className={styles.oneProject}>
         <div className={styles.oneProject__title}>
           <h1>{project.title}</h1>
@@ -149,7 +149,7 @@ export const getStaticProps = async ({ params }) => {
         console.log(e);
       });
 
-    const records = response.map((record) => {
+    const records = await response.map((record) => {
       return {
         id: record.id,
         ...record.fields,
@@ -161,10 +161,14 @@ export const getStaticProps = async ({ params }) => {
   const project = await Api("Project", {
     filterByFormula: `title = "${params.title}"`,
   });
+  const profil = await Api("Profil", {
+    filterByFormula: `id = 1`,
+  });
 
   return {
     props: {
       project: project[0],
+      logo: profil[0].logo[0],
     },
     revalidate: 60,
   };

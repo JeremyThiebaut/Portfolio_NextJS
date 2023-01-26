@@ -13,7 +13,7 @@ const Contact = ({ slider, profil }) => {
   const router = useRouter();
   const { register, handleSubmit } = useForm();
 
-  const onFormSubmit = (send) => {
+  const onFormSubmit = async (send) => {
     const data = JSON.parse(JSON.stringify(send));
     if (
       !data.message ||
@@ -27,7 +27,7 @@ const Contact = ({ slider, profil }) => {
         type: "error",
       });
     } else {
-      const response = fetch(`/api/mail`, {
+      const response = await fetch(`/api/mail`, {
         method: "POST",
         body: JSON.stringify(send),
       }).then((res) => {
@@ -52,7 +52,7 @@ const Contact = ({ slider, profil }) => {
           priority
         />
         <div className={styles.contact__left_container}>
-          <div>
+          <div className={styles.contact__left_global}>
             <div className={styles.contact__left_phone}>
               <div className={styles.contact__left_logo}>
                 <FontAwesomeIcon
@@ -64,7 +64,7 @@ const Contact = ({ slider, profil }) => {
               </div>
               <Link href={`tel:${profil.phone}`}>{profil.phone}</Link>
             </div>
-            <div className={styles.contact__mail}>
+            <div className={styles.contact__left_mail}>
               <div className={styles.contact__left_logo}>
                 <FontAwesomeIcon
                   className={styles.contact__left_icon}
@@ -218,7 +218,7 @@ export const getStaticProps = async () => {
         console.log(e);
       });
 
-    const records = response.map((record) => {
+    const records = await response.map((record) => {
       return {
         id: record.id,
         ...record.fields,

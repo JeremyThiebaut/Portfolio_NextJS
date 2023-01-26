@@ -71,7 +71,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
     }
 
     &_title {
@@ -139,6 +138,58 @@
       border-radius: 0.25rem;
       font-size: 1rem;
       cursor: pointer;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .contact {
+    &__left {
+      width: 4rem;
+      height: 100%;
+
+      &_container {
+        width: 4rem;
+      }
+
+      &_global {
+        display: flex;
+        transform: rotateZ(90deg);
+        width: 100vh;
+        justify-content: space-around;
+      }
+
+      &_phone,
+      &_mail {
+        margin: 0 0.5rem;
+        display: flex;
+        width: fit-content;
+      }
+
+      &_logo {
+        margin-right: 1rem;
+      }
+
+      &_icon {
+        margin: 0 1rem 0 0;
+      }
+
+      &_text {
+        margin: 0;
+      }
+    }
+
+    &__right {
+      width: calc(100% - 4rem);
+
+      &_container {
+        width: calc(100% - 4rem);
+      }
+
+      &_back,
+      &_send {
+        font-size: 75%;
+      }
     }
   }
 }

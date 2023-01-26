@@ -5,16 +5,27 @@
   z-index: 100;
   background-color: $blue;
   color: #fff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   height: 4rem;
   width: 100%;
   position: sticky;
   margin-bottom: -4rem;
+  
+  &__container {
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 120rem;
+    height: 100%;
+  }
 
   &__logo {
     margin-left: 10%;
+    width: 8rem;
+    height: auto;
+    background-color: #fff;
+    padding: 0.1rem 0.3rem;
+    border-radius: 10px;
   }
 
   &__nav {

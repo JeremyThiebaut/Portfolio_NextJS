@@ -1,13 +1,14 @@
 .description {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  max-width: 75vw;
+  justify-content: space-evenly;
+  max-width: 120rem;
   margin: auto;
-  padding: 8rem 0 0;
+  padding: 8rem 2rem 0;
 
   &__text {
     margin-right: 5rem;
+    max-width: 60rem;
 
     & p {
       margin: 1rem 0;
@@ -25,5 +26,19 @@
     width: 30%;
     height: auto;
     max-width: 20rem;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .description {
+    flex-direction: column-reverse;
+
+    &__text {
+      margin: 4rem 0 0 0;
+    }
+
+    &__picture {
+      width: 10rem;
+    }
   }
 }

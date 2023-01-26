@@ -8,10 +8,10 @@ import Image from "next/image";
 const Airtable = require("airtable");
 const { AIRTABLE_API_KEY, AIRTABLE_BASE_ID } = process.env;
 
-const Mention = ({ mention, slider }) => {
+const Mention = ({ siret, mention, slider, logo }) => {
   return (
     <div className={styles.mention}>
-      <Navbar />
+      <Navbar logo={logo} />
       <Image
         src={slider[2].picture[0].thumbnails.full.url}
         alt={"picture background of mention"}
@@ -25,7 +25,7 @@ const Mention = ({ mention, slider }) => {
           __html: DOMPurify.sanitize(marked(mention)),
         }}
       />
-      <Footer />
+      <Footer siret={siret} />
     </div>
   );
 };
@@ -45,7 +45,7 @@ export const getStaticProps = async () => {
         console.log(e);
       });
 
-    const records = response.map((record) => {
+    const records = await response.map((record) => {
       return {
         id: record.id,
         ...record.fields,
@@ -61,6 +61,8 @@ export const getStaticProps = async () => {
     props: {
       mention: profil[0].legalNotice,
       slider,
+      logo: profil[0].logo[0],
+      siret: profil[0].siret,
     },
     revalidate: 60,
   };
