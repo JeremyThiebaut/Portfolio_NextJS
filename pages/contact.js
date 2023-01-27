@@ -47,7 +47,6 @@ const Contact = ({ slider, profil }) => {
     }
   };
 
-  console.log(load);
   return (
     <div className={styles.contact}>
       <div className={styles.contact__left}>
