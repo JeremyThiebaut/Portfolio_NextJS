@@ -34,7 +34,7 @@ const Contact = ({ slider, profil }) => {
       });
       setLoad(false);
     } else {
-      const response = await fetch(`/api/mail`, {
+      await fetch(`/api/mail`, {
         method: "POST",
         body: JSON.stringify(send),
       }).then((res) => {
@@ -42,8 +42,8 @@ const Contact = ({ slider, profil }) => {
           autoClose: 4000,
           type: "success",
         });
-        redirect();
       });
+      redirect();
     }
   };
 
