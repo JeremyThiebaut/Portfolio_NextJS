@@ -5,8 +5,7 @@ import styles from "../styles/Mention.module.scss";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Image from "next/image";
-const Airtable = require("airtable");
-const { AIRTABLE_API_KEY, AIRTABLE_BASE_ID } = process.env;
+import Api from "../lib/getData";
 
 const Mention = ({ siret, mention, slider, logo }) => {
   return (
@@ -33,27 +32,6 @@ const Mention = ({ siret, mention, slider, logo }) => {
 export default Mention;
 
 export const getStaticProps = async () => {
-  const Api = async (data, filter) => {
-    const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
-      AIRTABLE_BASE_ID
-    );
-
-    const response = await base(data)
-      .select(filter)
-      .firstPage()
-      .catch((e) => {
-        console.log(e);
-      });
-
-    const records = await response.map((record) => {
-      return {
-        id: record.id,
-        ...record.fields,
-      };
-    });
-    return records;
-  };
-
   const profil = await Api("Profil", { filterByFormula: `id = 1` });
   const slider = await Api("Carousel", {});
 
@@ -64,6 +42,6 @@ export const getStaticProps = async () => {
       logo: profil[0].logo[0],
       siret: profil[0].siret,
     },
-    revalidate: 60,
+    revalidate: 1,
   };
 };

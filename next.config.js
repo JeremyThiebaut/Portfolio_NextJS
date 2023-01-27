@@ -5,6 +5,10 @@ const nextConfig = {
     domains: ["v5.airtableusercontent.com"],
     unoptimized: true,
   },
+  experimental: {
+    // Defaults to 50MB
+    isrMemoryCacheSize: 0,
+  },
 };
 
 module.exports = nextConfig;

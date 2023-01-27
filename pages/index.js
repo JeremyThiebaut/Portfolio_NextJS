@@ -6,8 +6,7 @@ import Document from "../components/Document";
 import Footer from "../components/Footer";
 import Slider from "../components/Slider";
 import Navbar from "../components/Navbar";
-const Airtable = require("airtable");
-const { AIRTABLE_API_KEY, AIRTABLE_BASE_ID } = process.env;
+import Api from "../lib/getData";
 
 export default function Home({ profil, project, document, slider, logo }) {
   return (
@@ -29,27 +28,6 @@ export default function Home({ profil, project, document, slider, logo }) {
 }
 
 export const getStaticProps = async () => {
-  const Api = async (data, filter) => {
-    const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
-      AIRTABLE_BASE_ID
-    );
-
-    const response = await base(data)
-      .select(filter)
-      .firstPage()
-      .catch((e) => {
-        console.log(e);
-      });
-
-    const records = await response.map((record) => {
-      return {
-        id: record.id,
-        ...record.fields,
-      };
-    });
-    return records;
-  };
-
   const profil = await Api("Profil", { filterByFormula: `id = 1` });
   const project = await Api("Project", {});
   const document = await Api("Document", {});
@@ -62,6 +40,6 @@ export const getStaticProps = async () => {
       slider,
       logo: profil[0].logo[0],
     },
-    revalidate: 60,
+    revalidate: 1,
   };
 };

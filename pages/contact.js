@@ -6,10 +6,11 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
-const Airtable = require("airtable");
-const { AIRTABLE_API_KEY, AIRTABLE_BASE_ID } = process.env;
+import Api from "../lib/getData";
+import { useState } from "react";
 
 const Contact = ({ slider, profil }) => {
+  const [load, setLoad] = useState(false);
   const router = useRouter();
   const { register, handleSubmit } = useForm();
 
@@ -18,6 +19,7 @@ const Contact = ({ slider, profil }) => {
   };
 
   const onFormSubmit = async (send) => {
+    setLoad(true);
     const data = JSON.parse(JSON.stringify(send));
     if (
       !data.message ||
@@ -30,6 +32,7 @@ const Contact = ({ slider, profil }) => {
         autoClose: 4000,
         type: "error",
       });
+      setLoad(false);
     } else {
       const response = await fetch(`/api/mail`, {
         method: "POST",
@@ -44,6 +47,7 @@ const Contact = ({ slider, profil }) => {
     }
   };
 
+  console.log(load);
   return (
     <div className={styles.contact}>
       <div className={styles.contact__left}>
@@ -197,9 +201,14 @@ const Contact = ({ slider, profil }) => {
                 value={`Retour a l'accueil`}
               />
               <input
-                className={styles.contact__right_send}
+                className={
+                  !load
+                    ? styles.contact__right_send
+                    : styles.contact__right_close
+                }
                 type="submit"
                 value="Envoyer le mail"
+                disabled={!load ? "" : "disabled"}
               />
             </div>
           </form>
@@ -212,27 +221,6 @@ const Contact = ({ slider, profil }) => {
 export default Contact;
 
 export const getStaticProps = async () => {
-  const Api = async (data, filter) => {
-    const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
-      AIRTABLE_BASE_ID
-    );
-
-    const response = await base(data)
-      .select(filter)
-      .firstPage()
-      .catch((e) => {
-        console.log(e);
-      });
-
-    const records = await response.map((record) => {
-      return {
-        id: record.id,
-        ...record.fields,
-      };
-    });
-    return records;
-  };
-
   const profil = await Api("Profil", { filterByFormula: `id = 1` });
   const slider = await Api("Carousel", {});
 
@@ -241,6 +229,6 @@ export const getStaticProps = async () => {
       profil: profil[0],
       slider,
     },
-    revalidate: 60,
+    revalidate: 1,
   };
 };
