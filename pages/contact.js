@@ -112,7 +112,7 @@ const Contact = ({ slider, profil }) => {
                       className={styles.contact__right_input}
                       name="firstName"
                       type="text"
-                      placeholder="Nom"
+                      placeholder="Prénom"
                       {...register("firstName")}
                       required
                     />
@@ -122,7 +122,7 @@ const Contact = ({ slider, profil }) => {
                       className={styles.contact__right_input}
                       name="lastName"
                       type="text"
-                      placeholder="Prénom"
+                      placeholder="Nom"
                       {...register("lastName")}
                       required
                     />
