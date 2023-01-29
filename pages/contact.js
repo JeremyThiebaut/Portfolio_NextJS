@@ -43,7 +43,7 @@ const Contact = ({ slider, profil }) => {
           type: "success",
         });
       });
-      redirect();
+      redirect(); 
     }
   };
 
