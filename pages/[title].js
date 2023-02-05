@@ -51,7 +51,7 @@ const OneProject = ({ project, profil }) => {
                       <div key={index} className={styles.oneProject__skil}>
                         <p>{spe}</p>
                         <Image
-                          src={project.SkilPicture[index].thumbnails.large.url}
+                          src={project.pictureUrl[index]}
                           alt={project.SkilPicture[index].filename}
                           width={project.SkilPicture[index].width}
                           height={project.SkilPicture[index].height}
