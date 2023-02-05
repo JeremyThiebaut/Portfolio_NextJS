@@ -7,12 +7,11 @@ import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
 import Api from "../lib/getData";
 
-const OneProject = ({ project, logo }) => {
+const OneProject = ({ project, profil }) => {
   const listPictures = [];
-
   return (
     <>
-      <Navbar logo={logo} />
+      <Navbar logo={profil.logo[0]} logoUrl={profil.logoUrl} />
       <div className={styles.oneProject}>
         <div className={styles.oneProject__title}>
           <h1>{project.title}</h1>
@@ -127,7 +126,7 @@ export const getStaticProps = async ({ params }) => {
   return {
     props: {
       project: project[0],
-      logo: profil[0].logo[0],
+      profil: profil[0],
     },
     revalidate: 1,
   };

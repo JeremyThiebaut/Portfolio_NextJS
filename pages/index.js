@@ -8,7 +8,7 @@ import Slider from "../components/Slider";
 import Navbar from "../components/Navbar";
 import Api from "../lib/getData";
 
-export default function Home({ profil, project, document, slider, logo }) {
+export default function Home({ profil, project, document, slider }) {
   return (
     <>
       <Head>
@@ -18,7 +18,7 @@ export default function Home({ profil, project, document, slider, logo }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Slider slider={slider} profil={profil} />
-      <Navbar logo={logo} />
+      <Navbar logo={profil.logo[0]} logoUrl={profil.logoUrl} />
       <Description profil={profil} />
       <Project project={project} />
       <Document document={document} />
@@ -38,7 +38,6 @@ export const getStaticProps = async () => {
       project,
       document,
       slider,
-      logo: profil[0].logo[0],
     },
     revalidate: 1,
   };

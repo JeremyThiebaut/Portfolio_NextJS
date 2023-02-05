@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styles from "../styles/Navbar.module.scss";
 
-const Navbar = ({ logo }) => {
+const Navbar = ({ logo, logoUrl }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const toggleOpen = () => {
@@ -42,7 +42,7 @@ const Navbar = ({ logo }) => {
       <div className={styles.navbar__container}>
         <Image
           className={styles.navbar__logo}
-          src={logo.thumbnails.large.url}
+          src={logoUrl}
           alt={`image du site ${logo.title}`}
           width={logo.width}
           height={logo.height}

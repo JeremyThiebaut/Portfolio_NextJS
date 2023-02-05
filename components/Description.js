@@ -14,7 +14,7 @@ const Description = ({ profil }) => {
       />
       <Image
         className={styles.description__picture}
-        src={profil.picture[0].thumbnails.large.url}
+        src={profil.pictureUrl}
         alt="Image de profil"
         width={500}
         height={500}
