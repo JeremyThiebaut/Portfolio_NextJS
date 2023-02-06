@@ -7,7 +7,7 @@ import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
 import Api from "../lib/getData";
 
-const OneProject = ({ project, profil }) => {
+const OneProject = ({ project, profil, picture }) => {
   const listPictures = [];
   return (
     <>
@@ -25,7 +25,7 @@ const OneProject = ({ project, profil }) => {
               return (
                 <div key={element.id} className={styles.oneProject__section}>
                   <Image
-                    src={element.thumbnails.large.url}
+                    src={picture[index]}
                     alt={element.filename}
                     width={element.width}
                     height={element.height}
@@ -127,6 +127,7 @@ export const getStaticProps = async ({ params }) => {
     props: {
       project: project[0],
       profil: profil[0],
+      picture: project[0].picuresProjectUrl,
     },
     revalidate: 1,
   };

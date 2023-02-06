@@ -16,7 +16,7 @@ const Project = ({ project }) => {
             >
               <Image
                 className={styles.project__picture}
-                src={prod.picture[0].thumbnails.large.url}
+                src={prod.picuresProjectUrl[0]}
                 alt={`image du site ${prod.title}`}
                 width={prod.picture[0].width}
                 height={prod.picture[0].height}
