@@ -61,7 +61,7 @@ const OneProject = ({ project, profil, picture }) => {
                     ))}
                   </div>
                   <Image
-                    src={element.thumbnails.full.url}
+                    src={picture[index]}
                     alt={element.filename}
                     width={element.width}
                     height={element.height}
