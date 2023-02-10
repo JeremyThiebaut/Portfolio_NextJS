@@ -9,6 +9,7 @@ import Api from "../lib/getData";
 
 const OneProject = ({ project, profil, picture }) => {
   const listPictures = [];
+  const urlPictures = [];
   return (
     <>
       <Navbar logo={profil.logo[0]} logoUrl={profil.logoUrl} />
@@ -71,6 +72,7 @@ const OneProject = ({ project, profil, picture }) => {
               );
             } else if (index > 2 || index <= 5) {
               listPictures.push(element);
+              urlPictures.push(picture[index]);
             }
           })}
         </div>
@@ -83,10 +85,10 @@ const OneProject = ({ project, profil, picture }) => {
         </Link>
         {listPictures.length !== 0 && (
           <div className={styles.oneProject__listPicture}>
-            {listPictures.map((list) => (
+            {listPictures.map((list, index) => (
               <Image
                 key={list.id}
-                src={list.thumbnails.full.url}
+                src={urlPictures[index]}
                 alt={list.filename}
                 width={list.width}
                 height={list.height}
