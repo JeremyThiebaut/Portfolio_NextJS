@@ -52,7 +52,7 @@ const Contact = ({ slider, profil }) => {
       <div className={styles.contact__left}>
         <Image
           className={styles.contact__left_picture}
-          src={slider[2].picture[0].thumbnails.full.url}
+          src={slider[2].pictureUrl}
           alt={"picture background of mention"}
           width={slider[2].picture[0].width}
           height={slider[2].picture[0].height}
