@@ -7,12 +7,12 @@ import Footer from "../components/Footer";
 import Image from "next/image";
 import Api from "../lib/getData";
 
-const Mention = ({ siret, mention, slider, logo }) => {
+const Mention = ({ siret, mention, slider, profil }) => {
   return (
     <div className={styles.mention}>
-      <Navbar logo={logo} />
+      <Navbar logo={profil.logo[0]} logoUrl={profil.logoUrl} />
       <Image
-        src={slider[2].picture[0].thumbnails.full.url}
+        src={slider[2].pictureUrl}
         alt={"picture background of mention"}
         width={slider[2].picture[0].width}
         height={slider[2].picture[0].height}
@@ -37,9 +37,9 @@ export const getStaticProps = async () => {
 
   return {
     props: {
+      profil: profil[0],
       mention: profil[0].legalNotice,
       slider,
-      logo: profil[0].logo[0],
       siret: profil[0].siret,
     },
     revalidate: 1,

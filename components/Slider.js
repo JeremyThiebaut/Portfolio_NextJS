@@ -28,7 +28,7 @@ const Slider = ({ slider, profil }) => {
           <div key={slide.id}>
             <Image
               className={styles.slider__picture}
-              src={slide.picture[0].thumbnails.full.url}
+              src={slide.pictureUrl}
               alt={slide.description}
               width={500}
               height={500}
