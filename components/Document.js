@@ -23,14 +23,14 @@ const Document = ({ document }) => {
           <Link
             target="_blank"
             key={element.id}
-            href={element.link[0].url}
+            href={element.linkUrl}
             className={styles.document__link}
           >
             <span>{element.description}</span>
             <hr />
             <Image
               className={styles.document__picture}
-              src={element.picture[0].thumbnails.large.url}
+              src={element.pictureUrl}
               alt={`image du site ${element.title}`}
               width={500}
               height={500}
