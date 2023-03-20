@@ -14,6 +14,11 @@ const Project = ({ project }) => {
               key={prod.id}
               href={`/${prod.title}`}
             >
+              {prod.working && (
+                <div className={styles.project__working}>
+                  En développement...
+                </div>
+              )}
               <Image
                 className={styles.project__picture}
                 src={prod.picuresProjectUrl[0]}

@@ -30,8 +30,8 @@ const Slider = ({ slider, profil }) => {
               className={styles.slider__picture}
               src={slide.pictureUrl}
               alt={slide.description}
-              width={500}
-              height={500}
+              width={slide.picture[0].thumbnails.small.width}
+              height={slide.picture[0].thumbnails.small.height}
               priority
             />
           </div>

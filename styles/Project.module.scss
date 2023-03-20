@@ -28,6 +28,9 @@
   &__project {
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
       border-right: 1px solid #fff;
@@ -45,11 +48,25 @@
   }
 
   &__picture {
-    width: 100%;
+    width: 37svw;
+    max-width: 100%;
     height: 20svw;
     max-height: 24rem;
     object-fit: cover;
     transition: all 0.2s ease;
+  }
+
+  &__working {
+    position: absolute;
+    rotate: 27deg;
+    text-align: center;
+    z-index: 1;
+    font-weight: bold;
+    font-size: 1.5rem;
+    padding: 1rem;
+    width: 200%;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.8705882353);
   }
 
   &__description {

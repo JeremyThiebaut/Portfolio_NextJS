@@ -3,6 +3,13 @@
 .oneProject {
   height: 100svh;
 
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100svh;
+  }
+
   &__title {
     display: flex;
     flex-direction: column;
@@ -76,6 +83,21 @@
     color: lightcoral;
     margin: -2rem 0 2rem;
     font-weight: bold;
+  }
+
+  &__working {
+    position: sticky;
+    rotate: 27deg;
+    top: 50%;
+    margin-top: -3.5rem;
+    text-align: center;
+    z-index: 1;
+    font-weight: bold;
+    font-size: 1.5rem;
+    padding: 1rem;
+    width: 200%;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.8705882353);
   }
 }
 
