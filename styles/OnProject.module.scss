@@ -4,6 +4,7 @@
   height: 100svh;
 
   &__container {
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -86,7 +87,7 @@
   }
 
   &__working {
-    position: sticky;
+    position: fixed;
     rotate: 27deg;
     top: 50%;
     margin-top: -3.5rem;
