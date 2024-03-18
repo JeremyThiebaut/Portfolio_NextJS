@@ -28,10 +28,12 @@ const Slider = ({ slider, profil }) => {
           <div key={slide.id}>
             <Image
               className={styles.slider__picture}
-              src={slide.pictureUrl}
+              src={slide.picture_url
+                .replace("/file/d/", "/uc?export=view&id=")
+                .replace("/view?usp=drive_link", "")}
               alt={slide.description}
-              width={slide.picture[0].thumbnails.small.width}
-              height={slide.picture[0].thumbnails.small.height}
+              width={500}
+              height={500}
               priority
             />
           </div>
@@ -44,7 +46,7 @@ const Slider = ({ slider, profil }) => {
             " slider-zone-top animate__animated animate__fadeInUp"
           }
         >
-          {profil.firstName} {profil.lastName}
+          {profil.firstname} {profil.lastname}
         </h1>
         <hr
           className={

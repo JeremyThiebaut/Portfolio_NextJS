@@ -18,20 +18,20 @@ export default function Home({ profil, project, document, slider }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Slider slider={slider} profil={profil} />
-      <Navbar logo={profil.logo[0]} logoUrl={profil.logoUrl} />
+      {/* <Navbar logo={profil.logo[0]} logoUrl={profil.logoUrl} />
       <Description profil={profil} />
       <Project project={project} />
       <Document document={document} />
-      <Footer siret={profil.siret} />
+      <Footer siret={profil.siret} /> */}
     </>
   );
 }
 
 export const getStaticProps = async () => {
-  const profil = await Api("Profil", { filterByFormula: `id = 1` });
-  const project = await Api("Project", {});
-  const document = await Api("Document", {});
-  const slider = await Api("Carousel", {});
+  const profil = await Api("Profils", {});
+  const project = await Api("Projects", {});
+  const document = await Api("Documents", {});
+  const slider = await Api("Carousels", {});
   return {
     props: {
       profil: profil[0],
